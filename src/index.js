@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import CreateEmployee from './pages/CreateEmployee';
 import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter,RouterProvider} from "react-router-dom";
+import EmployeeList from './pages/EmployeeList';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <CreateEmployee />,
+  },
+  {
+    path: "/employee-list",
+    element: <EmployeeList />,
+  },
+])
+
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
