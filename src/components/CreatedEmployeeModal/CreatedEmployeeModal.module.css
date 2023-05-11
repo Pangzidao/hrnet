@@ -1,0 +1,43 @@
+.mainContainer{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+}
+
+.background{
+    background-color: black;
+    opacity: 40%;
+    width: 100vw;
+    height: 100vh;
+}
+
+.modalContainer{
+    border: solid 1px ;
+    position: absolute;
+    left:30%;
+    top: 30%;
+    width: 30%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.modalText{
+    color: black;
+}
+
+.closeX{
+    color: white;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 50%;
+    background-color: black;
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
