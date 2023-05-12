@@ -1,0 +1,30 @@
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    flex-wrap: wrap;
+}
+
+.logo{
+    width: 120px;
+    margin-right: 100px;
+}
+
+.appTitle{
+    font-size: 48px;
+}
+
+.linkToEmployeeList{
+    text-decoration: none;
+    background-color: #a5b279;
+    padding:2%;
+    border-radius: 20px;
+    color: white;
+    width: 220px;
+}
+
+.body{
+    display: flex;
+    justify-content: center;
+}

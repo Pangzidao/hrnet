@@ -1,6 +1,6 @@
 import React from 'react';
-import './EmployeeTable.css'; // import the CSS file
 import { useState, useEffect } from 'react'
+import styles from "./EmployeeTable.module.css"
 
 
 
@@ -208,8 +208,6 @@ const employees = [
   }
 ]
 
-
-
 function EmployeeTable() {
   const [numberOfEmployeesDisplay, setNumberOfEmployeesDisplay] = useState(4);
   const [orderBy, setOrderBy] = useState(null);
@@ -218,17 +216,12 @@ function EmployeeTable() {
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [storedEmployees, setStoredEmployees] = useState([])
 
-  console.log(storedEmployees);
-
   useEffect(() => {
     //setStoredEmployees(JSON.parse(localStorage.getItem('employees')))
     setStoredEmployees(employees)
   }, []);
 
-  let employeesDisplay = []
-  storedEmployees? employeesDisplay = storedEmployees.slice(0, numberOfEmployeesDisplay) : employeesDisplay = []
    
-
   const handleOrderChange = (column) => {
     if (orderBy === column) {
       // If the same column is clicked again, toggle the order direction
@@ -257,7 +250,7 @@ function EmployeeTable() {
   };
 
 
-  const orderedEmployeesDisplay = employeesDisplay.sort((a, b) => {
+  const orderedEmployees = storedEmployees.sort((a, b) => {
     if (orderBy) {
       const valueA = a[orderBy];
       const valueB = b[orderBy];
@@ -267,7 +260,7 @@ function EmployeeTable() {
     return 0;
   });
 
-  const displayEmployees = searchValue ? filteredEmployees : orderedEmployeesDisplay;
+  const displayEmployees = searchValue ? filteredEmployees.slice(0, numberOfEmployeesDisplay) : orderedEmployees.slice(0, numberOfEmployeesDisplay);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -279,140 +272,146 @@ function EmployeeTable() {
 
   return (
     <div>
+      <div className={styles.tableOptions}>
+      <div>
+      <label htmlFor="numbersOfEmployeesDisplay">Show </label>
+      <select
+        name="numbersOfEmployeesDisplay"
+        id="numbersOfEmployeesDisplay"
+        onChange={(e) => setNumberOfEmployeesDisplay(parseInt(e.target.value))}
+        defaultValue="4"
+      >
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+      <label htmlFor="numbersOfEmployeesDisplay"> entries</label>
+      </div>
+     
       <input
         type="text"
         value={searchValue}
         onChange={handleSearch}
         placeholder="Search employees"
       />
-      <label htmlFor="cars">Show </label>
-      <select
-        name="cars"
-        id="cars"
-        onChange={(e) => setNumberOfEmployeesDisplay(parseInt(e.target.value))}
-        defaultValue="4"
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-      </select>
-      <label htmlFor="cars"> entries</label>
+      </div>
+      
       <table>
         <thead>
           <tr>
-            <th>
+            <th onClick={() => handleOrderChange("firstName")}>
               First Name{" "}
               {orderBy === "firstName" ? (
-                <span onClick={() => handleOrderChange("firstName")}>
+                <span>
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("firstName")}>
+                <span>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("lastName")}>
               Last Name{" "}
               {orderBy === "lastName" ? (
-                <span onClick={() => handleOrderChange("lastName")}>
+                <span >
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("lastName")}>
+                <span>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("startDate")}>
               Start Date{" "}
               {orderBy === "startDate" ? (
-                <span onClick={() => handleOrderChange("startDate")}>
+                <span >
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("startDate")}>
+                <span>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("department")}>
               Department{" "}
               {orderBy === "department" ? (
-                <span onClick={() => handleOrderChange("department")}>
+                <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("department")}>
+                <span>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange('dateOfBirth')}>
               Date of Birth{' '}
               {orderBy === 'dateOfBirth' ? (
-                <span onClick={() => handleOrderChange('dateOfBirth')}>
+                <span >
                   {orderDirection === 'asc' ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange('dateOfBirth')}>
+                <span>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("street")}>
               Street{" "}
               {orderBy === "street" ? (
-                <span onClick={() => handleOrderChange("street")}>
+                <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("street")}>
+                <span>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("city")}>
               City{" "}
               {orderBy === "city" ? (
-                <span onClick={() => handleOrderChange("city")}>
+                <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("city")}>
+                <span>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("state")}>
               State{" "}
               {orderBy === "state" ? (
-                <span onClick={() => handleOrderChange("state")}>
+                <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("state")}>
+                <span>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
             </th>
-            <th>
+            <th onClick={() => handleOrderChange("zipCode")}>
               Zip Code{" "}
               {orderBy === "zipCode" ? (
-                <span onClick={() => handleOrderChange("zipCode")}>
+                <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span onClick={() => handleOrderChange("zipCode")}>
+                <span>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
@@ -425,9 +424,9 @@ function EmployeeTable() {
             <tr key={employee.firstName + employee.lastName}>
               <td>{employee.firstName}</td>
               <td>{employee.lastName}</td>
-              <td>{<td>{formatDate(employee.startDate)}</td>}</td>
+              <td>{formatDate(employee.startDate)}</td>
               <td>{employee.department}</td>
-              <td>{<td>{formatDate(employee.dateOfBirth)}</td>}</td>
+              <td>{formatDate(employee.dateOfBirth)}</td>
               <td>{employee.street}</td>
               <td>{employee.city}</td>
               <td>{employee.state}</td>

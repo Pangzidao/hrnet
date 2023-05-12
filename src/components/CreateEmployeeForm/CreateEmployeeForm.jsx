@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import EmployeeCreatedModal from "../CreatedEmployeeModal/CreatedEmployeeModal";
+import styles from "./CreateEmployee.module.css"
 
 const states = [
   // List of American states
@@ -71,12 +72,14 @@ const CreateEmployeeForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.componentMainContainer}>
       <h2>Create Employee</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          First Name:
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <label className={styles.label}>
+          First Name
+          <br />
           <input
+            className={styles.input}
             type="text"
             name="firstName"
             value={formData.firstName}
@@ -85,9 +88,11 @@ const CreateEmployeeForm = () => {
           />
         </label>
         <br />
-        <label>
-          Last Name:
+        <label className={styles.label}>
+          Last Name
+          <br />
           <input
+            className={styles.input}
             type="text"
             name="lastName"
             value={formData.lastName}
@@ -96,34 +101,11 @@ const CreateEmployeeForm = () => {
           />
         </label>
         <br />
-        <label>
-          Start Date:
+        <label className={styles.label}>          
+          Date of Birth
+          <br />
           <DatePicker
-            selected={formData.startDate}
-            onChange={handleStartDateChange}
-            dateFormat="MM/dd/yyyy"
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Department:
-          <select
-            name="department"
-            value={formData.department || departments[0]}
-            onChange={handleChange}
-            required
-          >
-            {departments.map((department) => (
-              <option key={department} value={department}>
-                {department}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label>          Date of Birth:
-          <DatePicker
+            className={styles.input}
             selected={formData.dateOfBirth}
             onChange={handleDateOfBirthChange}
             dateFormat="MM/dd/yyyy"
@@ -131,20 +113,38 @@ const CreateEmployeeForm = () => {
           />
         </label>
         <br />
-        <label>
-          Street:
+        <label className={styles.label}>
+          Start Date
+          <br />
+          <DatePicker
+            className={styles.input}
+            selected={formData.startDate}
+            onChange={handleStartDateChange}
+            dateFormat="MM/dd/yyyy"
+            required
+          />
+        </label>
+        <br />
+        <div className={styles.addressContainer}>
+          <h2>Address</h2>
+        <label className={styles.label}>
+          Street
+          <br />
           <input
+            className={styles.input}
             type="text"
             name="street"
             value={formData.street}
             onChange={handleChange}
             required
           />
-        </label>
+        </label >
         <br />
         <label>
-          City:
+          City
+          <br />
           <input
+            className={styles.input}
             type="text"
             name="city"
             value={formData.city}
@@ -153,9 +153,11 @@ const CreateEmployeeForm = () => {
           />
         </label>
         <br />
-        <label>
-          State:
+        <label className={styles.label}>
+          State
+          <br />
           <select
+            className={styles.input}
             name="state"
             value={formData.state}
             onChange={handleChange}
@@ -170,42 +172,41 @@ const CreateEmployeeForm = () => {
           </select>
         </label>
         <br />
-        <label>
-          Zip Code:
+        <label className={styles.label}>
+          Zip Code
+          <br />
           <div>
             <input
+              className={styles.input}
               type="number"
               name="zipCode"
               value={formData.zipCode}
               onChange={handleChange}
               required
             />
-            <button
-              type="button"
-              onClick={() =>
-                setFormData((prevFormData) => ({
-                  ...prevFormData,
-                  zipCode: (parseInt(prevFormData.zipCode) || 0) + 1
-                }))
-              }
-            >
-              &#x25B2;
-            </button>
-            <button
-              type="button"
-              onClick={() =>
-                setFormData((prevFormData) => ({
-                  ...prevFormData,
-                  zipCode: (parseInt(prevFormData.zipCode) || 0) - 1
-                }))
-              }
-            >
-              &#x25BC;
-            </button>
           </div>
         </label>
+        </div>
+        <label className={styles.label}>
+          Department
+          <br />
+          <select
+            className={styles.input}
+            name="department"
+            value={formData.department || departments[0]}
+            onChange={handleChange}
+            required
+          >
+            {departments.map((department) => (
+              <option key={department} value={department}>
+                {department}
+              </option>
+            ))}
+          </select>
+        </label>
+        
         <br />
-        <button type="submit">Submit</button>
+        <button className={styles.submitButton} type="submit">Save</button>
       </form>
       {employeeCreated && <EmployeeCreatedModal />}
     </div>

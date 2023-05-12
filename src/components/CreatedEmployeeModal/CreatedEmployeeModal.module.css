@@ -6,17 +6,17 @@
 }
 
 .background{
-    background-color: black;
+    background-color: #a5b279;
     opacity: 40%;
     width: 100vw;
     height: 100vh;
 }
 
 .modalContainer{
-    border: solid 1px ;
+    border: solid 4px #a5b279;
     position: absolute;
-    left:30%;
-    top: 30%;
+    left:35%;
+    top: 35%;
     width: 30%;
     height: 20%;
     display: flex;
@@ -27,7 +27,8 @@
 }
 
 .modalText{
-    color: black;
+    color: #5a7008;
+    font-size: larger;
 }
 
 .closeX{
@@ -36,7 +37,7 @@
     height: 30px;
     padding: 5px;
     border-radius: 50%;
-    background-color: black;
+    background-color: #5a7008;
     position: absolute;
     top: -15px;
     right: -15px;

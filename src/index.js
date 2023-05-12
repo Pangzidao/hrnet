@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import CreateEmployee from './pages/CreateEmployee';
+import CreateEmployee from './pages/CreateEmployee/CreateEmployee';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
-import EmployeeList from './pages/EmployeeList';
+import EmployeeList from './pages/EmployeeList/EmployeeList';
 import { Provider } from 'react-redux';
 import store from './store';
 
