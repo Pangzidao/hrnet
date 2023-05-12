@@ -218,7 +218,7 @@ function EmployeeTable() {
   const [storedEmployees, setStoredEmployees] = useState([]);
 
   useEffect(() => {
-    // setStoredEmployees(JSON.parse(localStorage.getItem('employees')))
+    //setStoredEmployees(JSON.parse(localStorage.getItem('employees')))
     setStoredEmployees(employees);
   }, []);
 
@@ -313,123 +313,158 @@ function EmployeeTable() {
 
       <table>
         <thead>
-          <tr>
-            <th onClick={() => handleOrderChange("firstName")}>
-              First Name{" "}
+          <tr className={styles.tableHead}>
+            <th  onClick={() => handleOrderChange("firstName")}>
+              <div className={styles.headings}>
+              <span>First Name{" "}</span>
               {orderBy === "firstName" ? (
                 <span>
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
+              </div>
+              
             </th>
-            <th onClick={() => handleOrderChange("lastName")}>
-              Last Name{" "}
+            <th  onClick={() => handleOrderChange("lastName")}>
+            <div className={styles.headings}>
+            Last Name{" "}
               {orderBy === "lastName" ? (
                 <span >
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
-            <th onClick={() => handleOrderChange("startDate")}>
-              Start Date{" "}
+            <th  onClick={() => handleOrderChange("startDate")}>
+            <div className={styles.headings}>
+            Start Date{" "}
               {orderBy === "startDate" ? (
                 <span >
                   {orderDirection === "asc" ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
             <th onClick={() => handleOrderChange("department")}>
-              Department{" "}
+            <div className={styles.headings}>
+            Department{" "}
               {orderBy === "department" ? (
                 <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
             <th onClick={() => handleOrderChange('dateOfBirth')}>
-              Date of Birth{' '}
+            <div className={styles.headings}>
+            Date of Birth{' '}
               {orderBy === 'dateOfBirth' ? (
                 <span >
                   {orderDirection === 'asc' ? <span>&#x25B2;</span> : <span>&#x25BC;</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>&#x25B2;</span>
                   <span>&#x25BC;</span>
                 </span>
               )}
+            </div>
+
+             
             </th>
-            <th onClick={() => handleOrderChange("street")}>
-              Street{" "}
+            <th  onClick={() => handleOrderChange("street")}>
+            <div className={styles.headings}>
+            Street{" "}
               {orderBy === "street" ? (
                 <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
             <th onClick={() => handleOrderChange("city")}>
-              City{" "}
+            <div className={styles.headings}>
+            City{" "}
               {orderBy === "city" ? (
                 <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
-            <th onClick={() => handleOrderChange("state")}>
-              State{" "}
+            <th  onClick={() => handleOrderChange("state")}>
+            <div className={styles.headings}>
+            State{" "}
               {orderBy === "state" ? (
                 <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
-            <th onClick={() => handleOrderChange("zipCode")}>
-              Zip Code{" "}
+            <th  onClick={() => handleOrderChange("zipCode")}>
+            <div className={styles.headings}>
+            Zip Code{" "}
               {orderBy === "zipCode" ? (
                 <span >
                   {orderDirection === "asc" ? <span>▲</span> : <span>▼</span>}
                 </span>
               ) : (
-                <span>
+                <span className={styles.orderingArrows}>
                   <span>▲</span>
                   <span>▼</span>
                 </span>
               )}
+            </div>
+
+              
             </th>
           </tr>
         </thead>

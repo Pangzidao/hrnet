@@ -29,8 +29,6 @@ table {
     padding-bottom: 20px;
   }
 
- 
-
   .pagination{
     display: flex;
     width: 100%;
@@ -77,4 +75,14 @@ table {
   
   .buttonDisabled{
     visibility: hidden;
+  }
+
+  .headings{
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+  }
+  .orderingArrows{
+    display: flex;
+    flex-direction: column;
   }
