@@ -210,18 +210,22 @@ const employees = [
 
 function EmployeeTable() {
   const [numberOfEmployeesDisplay, setNumberOfEmployeesDisplay] = useState(4);
+  const [currentPage, setCurrentPage] = useState(1);
   const [orderBy, setOrderBy] = useState(null);
   const [orderDirection, setOrderDirection] = useState("asc");
   const [searchValue, setSearchValue] = useState('');
   const [filteredEmployees, setFilteredEmployees] = useState([]);
-  const [storedEmployees, setStoredEmployees] = useState([])
+  const [storedEmployees, setStoredEmployees] = useState([]);
 
   useEffect(() => {
-    //setStoredEmployees(JSON.parse(localStorage.getItem('employees')))
-    setStoredEmployees(employees)
+    // setStoredEmployees(JSON.parse(localStorage.getItem('employees')))
+    setStoredEmployees(employees);
   }, []);
 
-   
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [numberOfEmployeesDisplay]);
+
   const handleOrderChange = (column) => {
     if (orderBy === column) {
       // If the same column is clicked again, toggle the order direction
@@ -249,7 +253,6 @@ function EmployeeTable() {
     setFilteredEmployees(filtered);
   };
 
-
   const orderedEmployees = storedEmployees.sort((a, b) => {
     if (orderBy) {
       const valueA = a[orderBy];
@@ -260,7 +263,18 @@ function EmployeeTable() {
     return 0;
   });
 
-  const displayEmployees = searchValue ? filteredEmployees.slice(0, numberOfEmployeesDisplay) : orderedEmployees.slice(0, numberOfEmployeesDisplay);
+  const filteredAndOrderedEmployees = searchValue ? filteredEmployees : orderedEmployees;
+
+  const totalEmployees = filteredAndOrderedEmployees.length;
+  const totalPages = Math.ceil(totalEmployees / numberOfEmployeesDisplay);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const startEntryIndex = (currentPage - 1) * numberOfEmployeesDisplay;
+  const endEntryIndex = currentPage * numberOfEmployeesDisplay;
+  const displayEmployees = filteredAndOrderedEmployees.slice(startEntryIndex, endEntryIndex);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -273,30 +287,30 @@ function EmployeeTable() {
   return (
     <div>
       <div className={styles.tableOptions}>
-      <div>
-      <label htmlFor="numbersOfEmployeesDisplay">Show </label>
-      <select
-        name="numbersOfEmployeesDisplay"
-        id="numbersOfEmployeesDisplay"
-        onChange={(e) => setNumberOfEmployeesDisplay(parseInt(e.target.value))}
-        defaultValue="4"
-      >
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
-      <label htmlFor="numbersOfEmployeesDisplay"> entries</label>
+        <div>
+          <label htmlFor="numbersOfEmployeesDisplay">Show </label>
+          <select
+            name="numbersOfEmployeesDisplay"
+            id="numbersOfEmployeesDisplay"
+            onChange={(e) => setNumberOfEmployeesDisplay(parseInt(e.target.value))}
+            defaultValue="4"
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          <label htmlFor="numbersOfEmployeesDisplay"> entries</label>
+        </div>
+
+        <input
+          type="text"
+          value={searchValue}
+          onChange={handleSearch}
+          placeholder="Search employees"
+        />
       </div>
-     
-      <input
-        type="text"
-        value={searchValue}
-        onChange={handleSearch}
-        placeholder="Search employees"
-      />
-      </div>
-      
+
       <table>
         <thead>
           <tr>
@@ -435,6 +449,44 @@ function EmployeeTable() {
           ))}
         </tbody>
       </table>
+      <div className={styles.tableContainer}>
+  <table>
+    {/* Table content */}
+  </table>
+
+  {/* Pagination */}
+  <div className={styles.pagination}>
+    <div className={styles.pageInfo}>
+      Showing {startEntryIndex + 1} to {Math.min(endEntryIndex, totalEmployees)} of {totalEmployees} entries
+    </div>
+    <div className={styles.pageNavigation}>
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`${styles.navigationButton} ${currentPage === 1 && styles.buttonDisabled}`}
+      >
+        Previous
+      </button>
+      {Array.from({ length: totalPages }, (_, index) => (
+        <button
+          key={index}
+          className={`${styles.pageButton} ${currentPage === index + 1 ? styles.activePage : ''}`}
+          onClick={() => handlePageChange(index + 1)}
+        >
+          {index + 1}
+        </button>
+      ))}
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`${styles.navigationButton} ${currentPage === totalPages && styles.buttonDisabled}`}
+      >
+        Next
+      </button>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }
