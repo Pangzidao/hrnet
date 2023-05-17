@@ -84,7 +84,6 @@ const CreateEmployeeForm = () => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            required
           />
         </label>
         <br />
@@ -97,7 +96,6 @@ const CreateEmployeeForm = () => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            required
           />
         </label>
         <br />
@@ -109,7 +107,6 @@ const CreateEmployeeForm = () => {
             selected={formData.dateOfBirth}
             onChange={handleDateOfBirthChange}
             dateFormat="MM/dd/yyyy"
-            required
           />
         </label>
         <br />
@@ -121,7 +118,6 @@ const CreateEmployeeForm = () => {
             selected={formData.startDate}
             onChange={handleStartDateChange}
             dateFormat="MM/dd/yyyy"
-            required
           />
         </label>
         <br />
@@ -136,7 +132,6 @@ const CreateEmployeeForm = () => {
             name="street"
             value={formData.street}
             onChange={handleChange}
-            required
           />
         </label >
         <br />
@@ -149,7 +144,6 @@ const CreateEmployeeForm = () => {
             name="city"
             value={formData.city}
             onChange={handleChange}
-            required
           />
         </label>
         <br />
@@ -161,7 +155,6 @@ const CreateEmployeeForm = () => {
             name="state"
             value={formData.state}
             onChange={handleChange}
-            required
           >
             <option value="">Select a state</option>
             {states.map((state) => (
@@ -182,7 +175,6 @@ const CreateEmployeeForm = () => {
               name="zipCode"
               value={formData.zipCode}
               onChange={handleChange}
-              required
             />
           </div>
         </label>
@@ -195,7 +187,6 @@ const CreateEmployeeForm = () => {
             name="department"
             value={formData.department || departments[0]}
             onChange={handleChange}
-            required
           >
             {departments.map((department) => (
               <option key={department} value={department}>

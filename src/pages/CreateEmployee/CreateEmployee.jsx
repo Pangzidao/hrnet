@@ -7,14 +7,14 @@ function CreateEmployee() {
   return (
     <div>
       <div>
-        <header className={styles.header}>
+        <div className={styles.header}>
           <img src={logo} alt="logo de wealth health" className={styles.logo}/>
           <h1 className={styles.appTitle}>HRnet</h1>
           <Link className={styles.linkToEmployeeList} to="/employee-list">View current employee list</Link>
-        </header>
-        <body className={styles.body}>
+        </div>
+        <div className={styles.body}>
           <CreateEmployeeForm/>
-        </body>
+        </div>
       </div>
    </div>
 

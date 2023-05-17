@@ -5,8 +5,6 @@ import CreateEmployee from './pages/CreateEmployee/CreateEmployee';
 import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 import EmployeeList from './pages/EmployeeList/EmployeeList';
-import { Provider } from 'react-redux';
-import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
@@ -21,9 +19,9 @@ const router = createBrowserRouter([
 ])
 
 root.render(
-  <Provider store={store}>
+  <div>
     <RouterProvider router={router} />
-  </Provider>
+  </div>
 );
 
 // If you want to start measuring performance in your app, pass a function
