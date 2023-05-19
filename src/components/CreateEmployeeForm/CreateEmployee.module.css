@@ -36,3 +36,8 @@
     margin-top: 2%;
     border-radius: 10px;
 }
+
+.error{
+    color: red;
+    font-size: small;
+}

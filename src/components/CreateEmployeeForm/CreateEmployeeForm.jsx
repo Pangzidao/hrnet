@@ -16,6 +16,12 @@ const states = [
 const departments = ['Sales', 'Marketing', 'Legal', 'Engineering', 'Human Resources'];
 
 const CreateEmployeeForm = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -28,7 +34,84 @@ const CreateEmployeeForm = () => {
     zipCode: ''
   });
 
-  const [employeeCreated, setEmployeeCreated] = useState (false)
+  const [errorMessages, setErrorMessages] = useState({
+    firstName: '',
+    lastName: '',
+    startDate: '',
+    department: '',
+    dateOfBirth: '',
+    street: '',
+    city: '',
+    state: '',
+    zipCode: ''
+  });
+
+  const validateForm = () => {
+    let isValid = true;
+    const errors = {
+      firstName: '',
+      lastName: '',
+      startDate: '',
+      department: '',
+      dateOfBirth: '',
+      street: '',
+      city: '',
+      state: '',
+      zipCode: ''
+    };
+
+    if (formData.firstName.trim() === '') {
+      errors.firstName = 'First name is required.';
+      isValid = false;
+    }
+
+    if (formData.lastName.trim() === '') {
+      errors.lastName = 'Last name is required.';
+      isValid = false;
+    }
+
+    if (formData.startDate === null) {
+      errors.startDate = 'Start date is required.';
+      isValid = false;
+    }
+
+    if (formData.department === '') {
+      errors.department = 'Department is required.';
+      isValid = false;
+    }
+
+    if (formData.dateOfBirth === null) {
+      errors.dateOfBirth = 'Date of birth is required.';
+      isValid = false;
+    }
+
+    if (formData.street === '') {
+      errors.street = 'Street is required.';
+      isValid = false;
+    }
+
+    if (formData.city === '') {
+      errors.city = 'City is required.';
+      isValid = false;
+    }
+
+    if (formData.state === '') {
+      errors.state = 'State is required.';
+      isValid = false;
+    }
+
+    if (formData.zipCode === '') {
+      errors.zipCode = 'Zip code is required.';
+      isValid = false;
+    }
+    setErrorMessages(errors);
+
+    return isValid;
+  };
+
+
+
+  const [employeeCreated, setEmployeeCreated] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +119,9 @@ const CreateEmployeeForm = () => {
       ...prevFormData,
       [name]: value
     }));
+
+    validateForm(); // Call the validation function
+
   };
 
   const handleStartDateChange = (date) => {
@@ -54,21 +140,32 @@ const CreateEmployeeForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    const updatedEmployees = [...employees, formData];
-    localStorage.setItem('employees', JSON.stringify(updatedEmployees));
-    setFormData({
-      firstName: '',
-      lastName: '',
-      startDate: null,
-      department: '',
-      dateOfBirth: null,
-      street: '',
-      city: '',
-      state: '',
-      zipCode: ''
-    });
-    setEmployeeCreated(true)
+
+
+    if (validateForm()) {
+      // Form is valid, proceed with form submission
+      setIsModalOpen(true);
+
+      const employees = JSON.parse(localStorage.getItem('employees')) || [];
+      const updatedEmployees = [...employees, formData];
+      localStorage.setItem('employees', JSON.stringify(updatedEmployees));
+      setFormData({
+        firstName: '',
+        lastName: '',
+        startDate: null,
+        department: '',
+        dateOfBirth: null,
+        street: '',
+        city: '',
+        state: '',
+        zipCode: ''
+      });
+      setEmployeeCreated(true);
+    } else {
+      // Form is not valid, display error messages
+      // You can customize the error message display according to your needs
+      console.log('Form is not valid:', errorMessages);
+    }
   };
 
   return (
@@ -85,7 +182,9 @@ const CreateEmployeeForm = () => {
             value={formData.firstName}
             onChange={handleChange}
           />
+          <div className={styles.error}>{errorMessages.firstName}</div>
         </label>
+
         <br />
         <label className={styles.label}>
           Last Name
@@ -97,9 +196,11 @@ const CreateEmployeeForm = () => {
             value={formData.lastName}
             onChange={handleChange}
           />
+          <div className={styles.error}>{errorMessages.lastName}</div>
+
         </label>
         <br />
-        <label className={styles.label}>          
+        <label className={styles.label}>
           Date of Birth
           <br />
           <DatePicker
@@ -108,6 +209,8 @@ const CreateEmployeeForm = () => {
             onChange={handleDateOfBirthChange}
             dateFormat="MM/dd/yyyy"
           />
+          <div className={styles.error}>{errorMessages.dateOfBirth}</div>
+
         </label>
         <br />
         <label className={styles.label}>
@@ -119,65 +222,75 @@ const CreateEmployeeForm = () => {
             onChange={handleStartDateChange}
             dateFormat="MM/dd/yyyy"
           />
+          <div className={styles.error}>{errorMessages.startDate}</div>
+
         </label>
         <br />
         <div className={styles.addressContainer}>
           <h2>Address</h2>
-        <label className={styles.label}>
-          Street
-          <br />
-          <input
-            className={styles.input}
-            type="text"
-            name="street"
-            value={formData.street}
-            onChange={handleChange}
-          />
-        </label >
-        <br />
-        <label>
-          City
-          <br />
-          <input
-            className={styles.input}
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label className={styles.label}>
-          State
-          <br />
-          <select
-            className={styles.input}
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-          >
-            <option value="">Select a state</option>
-            {states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
-          </select>
-        </label>
-        <br />
-        <label className={styles.label}>
-          Zip Code
-          <br />
-          <div>
+          <label className={styles.label}>
+            Street
+            <br />
             <input
               className={styles.input}
-              type="number"
-              name="zipCode"
-              value={formData.zipCode}
+              type="text"
+              name="street"
+              value={formData.street}
               onChange={handleChange}
             />
-          </div>
-        </label>
+            <div className={styles.error}>{errorMessages.street}</div>
+
+          </label >
+          <br />
+          <label>
+            City
+            <br />
+            <input
+              className={styles.input}
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+            />
+            <div className={styles.error}>{errorMessages.city}</div>
+
+          </label>
+          <br />
+          <label className={styles.label}>
+            State
+            <br />
+            <select
+              className={styles.input}
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+            >
+              <option value="">Select a state</option>
+              {states.map((state) => (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
+            <div className={styles.error}>{errorMessages.state}</div>
+
+          </label>
+          <br />
+          <label className={styles.label}>
+            Zip Code
+            <br />
+            <div>
+              <input
+                className={styles.input}
+                type="number"
+                name="zipCode"
+                value={formData.zipCode}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.error}>{errorMessages.zipCode}</div>
+
+          </label>
         </div>
         <label className={styles.label}>
           Department
@@ -185,21 +298,24 @@ const CreateEmployeeForm = () => {
           <select
             className={styles.input}
             name="department"
-            value={formData.department || departments[0]}
+            value={formData.department}
             onChange={handleChange}
           >
+            <option value="">Select a department</option>
             {departments.map((department) => (
               <option key={department} value={department}>
                 {department}
               </option>
             ))}
           </select>
+          <div className={styles.error}>{errorMessages.department}</div>
+
         </label>
-        
+
         <br />
         <button className={styles.submitButton} type="submit">Save</button>
       </form>
-      {employeeCreated && <EmployeeCreatedModal />}
+      <EmployeeCreatedModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };

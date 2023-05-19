@@ -3,23 +3,24 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import styles from './CreatedEmployeeModal.module.css'
 import { useState } from 'react'
 
-function EmployeeCreatedModal(){
+const EmployeeCreatedModal = ( {isOpen, onClose} ) => {
 
-    function handleCloseModal(){
-        window.location.reload();
-    }   
+    if (!isOpen) return null;
 
-        return (
+    return (
             <div className={styles.mainContainer}>
                 <div className={styles.background}></div>
                 <div className={styles.modalContainer}>
                     <p className={styles.modalText}>Employee Created!</p>
-                    <FontAwesomeIcon icon={faXmark} className={styles.closeX} onClick={handleCloseModal}/>        
+                    <FontAwesomeIcon icon={faXmark} className={styles.closeX} onClick={onClose} />
                 </div>
             </div>
         )
     
+
     
+
+
 }
 
-export default  EmployeeCreatedModal
+export default EmployeeCreatedModal
