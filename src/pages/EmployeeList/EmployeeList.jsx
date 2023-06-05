@@ -1,7 +1,8 @@
-import EmployeeTable from "../../components/EmployeeTable/EmployeeTable"
 import { Link } from 'react-router-dom';
 import styles from "./EmployeeList.module.css"
 import logo from "../CreateEmployee/logo-wealth-health.png"
+import EmployeeTable from '@pangzidao/my-table-component/dist/EmployeeTable';
+import mockedEmployees from "../../employees"
 
 function EmployeeList(){
     return(
@@ -13,7 +14,7 @@ function EmployeeList(){
         </div>
         <div className={styles.body}>
             <h2>employee list</h2>
-            <EmployeeTable />
+            <EmployeeTable employees={mockedEmployees}/>
         </div>
         </div>
     )
